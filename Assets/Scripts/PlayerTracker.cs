@@ -17,12 +17,10 @@ public class PlayerTracker : MonoBehaviour {
 
 	IEnumerator LocationUpdate() {
 		while(true){
-			logger.ClearLog();
 			if (Input.location.status == LocationServiceStatus.Running) {
-				logger.PrintMessage("N: "+ Input.location.lastData.latitude);
-				logger.PrintMessage("E: " + Input.location.lastData.longitude);
-				logger.PrintMessage("Accuracy: " + Input.location.lastData.horizontalAccuracy);
-				//logger.PrintMessage("Timestamp: " + Utility.UnixTimeStampToDateTime(Input.location.lastData.timestamp).TimeOfDay);
+				logger.PrintMessage("N: "+ Input.location.lastData.latitude, 0.2f);
+				logger.PrintMessage("E: " + Input.location.lastData.longitude, 0.2f);
+				logger.PrintMessage("Accuracy: " + Input.location.lastData.horizontalAccuracy, 0.2f);
 
 				overlay.SetActive(CheckLocationForGoals());
 			}
@@ -34,16 +32,16 @@ public class PlayerTracker : MonoBehaviour {
 		int newRadius = 0;
 		if (int.TryParse(goalRadius, out newRadius)) {
 			this.goalRadius = newRadius * 0.00001;
-			logger.PrintMessage("New Radius: " + this.goalRadius);
+			logger.PrintMessage("New Radius: " + this.goalRadius, 5);
 		} else {
-			logger.PrintMessage("Could not convert input to int!");
+			logger.PrintMessage("Could not convert input to int!", 5);
 		}
 	}
 
 	public void SetGoal() {
 		if (Input.location.status == LocationServiceStatus.Running) {
 			goals.Add(new Goal(Input.location.lastData.latitude, Input.location.lastData.longitude));
-			logger.PrintMessage("New goal added at: N" + Input.location.lastData.latitude + " - E" + Input.location.lastData.longitude);
+			logger.PrintMessage("New goal added at: N" + Input.location.lastData.latitude + " - E" + Input.location.lastData.longitude, 5);
 		}
 	}
 	
@@ -51,7 +49,7 @@ public class PlayerTracker : MonoBehaviour {
 		foreach(Goal goal in goals) {
 			if (Input.location.lastData.latitude - goal.latitude < goalRadius &&
 				Input.location.lastData.longitude - goal.longitude < goalRadius) {
-				logger.PrintMessage("Goal found!");
+				logger.PrintMessage("Goal found!", 0);
 				return true;
 				}
 		}
