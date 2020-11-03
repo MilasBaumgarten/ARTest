@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public struct Goal {
 	public Goal(float latitude, float longitude) {
 		this.latitude = latitude;

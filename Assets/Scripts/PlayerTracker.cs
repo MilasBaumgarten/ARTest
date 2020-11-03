@@ -1,16 +1,17 @@
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTracker : MonoBehaviour {
 
 	[Tooltip("Distance from goal coordinates in seconds where the goal will still be counted as hit")]
-	[SerializeField] private int goalRadius = 0;
+	[SerializeField] private double goalRadius = 0;
 	[SerializeField] private List<Goal> goals = new List<Goal>();
 	[SerializeField] private BuildLogger logger;
+	[SerializeField] private GameObject overlay;
 
 	private void Start() {
+		overlay.SetActive(false);
 		StartCoroutine(LocationUpdate());
 	}
 
@@ -21,14 +22,9 @@ public class PlayerTracker : MonoBehaviour {
 				logger.PrintMessage("N: "+ Input.location.lastData.latitude);
 				logger.PrintMessage("E: " + Input.location.lastData.longitude);
 				logger.PrintMessage("Accuracy: " + Input.location.lastData.horizontalAccuracy);
-				logger.PrintMessage("Timestamp: " + Utility.UnixTimeStampToDateTime(Input.location.lastData.timestamp).TimeOfDay);
+				//logger.PrintMessage("Timestamp: " + Utility.UnixTimeStampToDateTime(Input.location.lastData.timestamp).TimeOfDay);
 
-				foreach(Goal goal in goals) {
-					if (Input.location.lastData.latitude - goal.latitude < goalRadius &&
-						Input.location.lastData.longitude - goal.longitude < goalRadius) {
-							logger.PrintMessage("Goal found!");
-					}
-				}
+				overlay.SetActive(CheckLocationForGoals());
 			}
 			yield return new WaitForSeconds(0.2f);
 		}
@@ -37,7 +33,7 @@ public class PlayerTracker : MonoBehaviour {
 	public void SetGoalRadius(string goalRadius) {
 		int newRadius = 0;
 		if (int.TryParse(goalRadius, out newRadius)) {
-			this.goalRadius = newRadius;
+			this.goalRadius = newRadius * 0.00001;
 			logger.PrintMessage("New Radius: " + this.goalRadius);
 		} else {
 			logger.PrintMessage("Could not convert input to int!");
@@ -49,5 +45,17 @@ public class PlayerTracker : MonoBehaviour {
 			goals.Add(new Goal(Input.location.lastData.latitude, Input.location.lastData.longitude));
 			logger.PrintMessage("New goal added at: N" + Input.location.lastData.latitude + " - E" + Input.location.lastData.longitude);
 		}
+	}
+	
+	private bool CheckLocationForGoals() {
+		foreach(Goal goal in goals) {
+			if (Input.location.lastData.latitude - goal.latitude < goalRadius &&
+				Input.location.lastData.longitude - goal.longitude < goalRadius) {
+				logger.PrintMessage("Goal found!");
+				return true;
+				}
+		}
+		
+		return false;
 	}
 }
