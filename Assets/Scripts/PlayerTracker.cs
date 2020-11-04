@@ -49,7 +49,7 @@ public class PlayerTracker : MonoBehaviour {
 		foreach(Goal goal in goals) {
 			if (Input.location.lastData.latitude - goal.latitude < goalRadius &&
 				Input.location.lastData.longitude - goal.longitude < goalRadius) {
-				logger.PrintMessage("Goal found!", 0);
+				logger.PrintMessage("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen.", 0);
 				return true;
 				}
 		}
