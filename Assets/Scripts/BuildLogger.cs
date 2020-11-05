@@ -17,9 +17,21 @@ class LoggedMessage {
 }
 
 public class BuildLogger : MonoBehaviour {
+	
+	public static BuildLogger instance { get; private set; }
 
 	[SerializeField] private Text debugMessageVisualization;
+	[SerializeField] private Text infoText;
+	[SerializeField] private Text planetNameText;
 	private List<LoggedMessage> messages = new List<LoggedMessage>();
+
+	protected void Start() {
+		if (instance) {
+			Destroy(this);
+		} else {
+			instance = this;
+		}
+	}
 	
 	protected void Update() {
 		string displayedMessage = "";
@@ -37,10 +49,18 @@ public class BuildLogger : MonoBehaviour {
 		
 		// visualize
 		debugMessageVisualization.text = displayedMessage;
-		Debug.Log(displayedMessage);
+		UnityEngine.Debug.Log(displayedMessage);
 	}
 
-	public void PrintMessage(string message, float duration) {
+	public void Debug(string message, float duration) {
 		messages.Add(new LoggedMessage(message, duration));
+	}
+	
+	public void SetInfo(string message) {
+		infoText.text = message;
+	}
+
+	public void SetPlanetName(string name) {
+		planetNameText.text = name;
 	}
 }

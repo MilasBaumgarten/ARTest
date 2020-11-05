@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4181027171868550}
   - component: {fileID: 6182455282590185878}
   - component: {fileID: 532113035343378065}
+  - component: {fileID: 7878170885874648544}
   m_Layer: 0
   m_Name: AR Placed Planet
   m_TagString: Untagged
@@ -81,3 +82,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7878170885874648544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934569588295450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6809219ce1a584fad9ab05175542ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

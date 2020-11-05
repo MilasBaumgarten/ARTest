@@ -2,7 +2,6 @@
 using UnityEngine.XR.ARFoundation;
 
 public class ARService: MonoBehaviour {
-	[SerializeField] private BuildLogger logger;
 	
 	private void OnEnable() {
 		ARSession.stateChanged += OnStateChanged;
@@ -15,28 +14,28 @@ public class ARService: MonoBehaviour {
 	private void OnStateChanged(ARSessionStateChangedEventArgs args) {
 		switch(args.state) {
 			case ARSessionState.None:
-				logger.PrintMessage("None", 2);
+				BuildLogger.instance.Debug("None", 2);
 				break;
 			case ARSessionState.CheckingAvailability:
-				logger.PrintMessage("CheckingAvailability", 2);
+				BuildLogger.instance.Debug("CheckingAvailability", 2);
 				break;
 			case ARSessionState.Installing:
-				logger.PrintMessage("Installing", 2);
+				BuildLogger.instance.Debug("Installing", 2);
 				break;
 			case ARSessionState.NeedsInstall:
-				logger.PrintMessage("NeedsInstall", 2);
+				BuildLogger.instance.Debug("NeedsInstall", 2);
 				break;
 			case ARSessionState.Ready:
-				logger.PrintMessage("Ready", 2);
+				BuildLogger.instance.Debug("Ready", 2);
 				break;
 			case ARSessionState.SessionInitializing:
-				logger.PrintMessage("SessionInitializing", 2);
+				BuildLogger.instance.Debug("SessionInitializing", 2);
 				break;
 			case ARSessionState.SessionTracking:
-				logger.PrintMessage("SessionTracking", 2);
+				BuildLogger.instance.Debug("SessionTracking", 2);
 				break;
 			case ARSessionState.Unsupported:
-				logger.PrintMessage("Unsupported", 2);
+				BuildLogger.instance.Debug("Unsupported", 2);
 				break;
 		}
 	}
