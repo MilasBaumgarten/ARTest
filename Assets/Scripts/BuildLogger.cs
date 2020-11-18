@@ -25,7 +25,7 @@ public class BuildLogger : MonoBehaviour {
 	[SerializeField] private Text planetNameText;
 	private List<LoggedMessage> messages = new List<LoggedMessage>();
 
-	protected void Start() {
+	protected void Awake() {
 		if (instance) {
 			Destroy(this);
 		} else {
@@ -33,7 +33,7 @@ public class BuildLogger : MonoBehaviour {
 		}
 	}
 	
-	protected void Update() {
+	protected void LateUpdate() {
 		string displayedMessage = "";
 		
 		// remove time from all messages, combine display message

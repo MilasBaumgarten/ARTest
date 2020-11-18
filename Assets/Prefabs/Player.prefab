@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalRadius: 5
+  headingOffsetAngle: 10
   planets:
   - name: Earth
     information: 'Das ist der Planet auf dem du lebst.
@@ -433,7 +434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1e9babde2398e4cb63097b8310600d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logger: {fileID: 2853035147258086569}
 --- !u!1 &5584392583375641284
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06ebdb50fecb294c8ae2253b21b9cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logger: {fileID: 2853035147258086569}
 --- !u!1 &5929894054010693505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1222,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2499471151135037968, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3454382548020493111, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -1241,6 +1244,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4465452484597911722, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145075948589061302, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_Text
+      value: '1
+
+        2
+
+        3
+
+        4
+
+        5
+
+        6
+
+        7
+
+        8
+
+        9
+
+        1
+
+        2
+
+        3
+
+        4
+
+        5
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145075948589061302, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145075948589061302, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145075948589061302, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145075948589061302, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
+      propertyPath: m_FontData.m_MinSize
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8843519852038773902, guid: 2b246692a28359449825f9308eb5bedf, type: 3}
@@ -1383,11 +1434,6 @@ PrefabInstance:
       objectReference: {fileID: 6063764843569928297}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff30289a9e1faed48a97124fe52a2536, type: 3}
---- !u!224 &280675737018591130 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5433991252759398340, guid: ff30289a9e1faed48a97124fe52a2536, type: 3}
-  m_PrefabInstance: {fileID: 5227627314843328606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &247539056979395332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5468262946626298714, guid: ff30289a9e1faed48a97124fe52a2536, type: 3}
@@ -1404,14 +1450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2853035147258086569 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8004100510776321271, guid: ff30289a9e1faed48a97124fe52a2536, type: 3}
+--- !u!224 &280675737018591130 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5433991252759398340, guid: ff30289a9e1faed48a97124fe52a2536, type: 3}
   m_PrefabInstance: {fileID: 5227627314843328606}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdab7f869af0d4143a98c856431699c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

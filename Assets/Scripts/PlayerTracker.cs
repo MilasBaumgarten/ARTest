@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerTracker : MonoBehaviour {
 
 	[Tooltip("Distance from goal coordinates in seconds where the goal will still be counted as hit")]
-	[SerializeField] private double goalRadius = 0;
+	[SerializeField] private double goalRadius = 10;
+	[SerializeField] private double headingOffsetAngle = 45;
 	[SerializeField] private List<PlanetInfo> planets = new List<PlanetInfo>();
 	[SerializeField] private GameObject overlay;
 	[Space(15)]
@@ -30,14 +31,17 @@ public class PlayerTracker : MonoBehaviour {
 	private void Start() {
 		overlay.SetActive(false);
 		StartCoroutine(LocationUpdate());
+		
+		// enable compass
+		Input.compass.enabled = true;
 	}
 
 	IEnumerator LocationUpdate() {
 		while(true){
 			if (Input.location.status == LocationServiceStatus.Running) {
-				BuildLogger.instance.Debug("N: "+ Input.location.lastData.latitude, 0.2f);
-				BuildLogger.instance.Debug("E: " + Input.location.lastData.longitude, 0.2f);
-				BuildLogger.instance.Debug("Accuracy: " + Input.location.lastData.horizontalAccuracy, 0.2f);
+				//BuildLogger.instance.Debug("N: "+ Input.location.lastData.latitude, 0.2f);
+				//BuildLogger.instance.Debug("E: " + Input.location.lastData.longitude, 0.2f);
+				//BuildLogger.instance.Debug("Accuracy: " + Input.location.lastData.horizontalAccuracy, 0.2f);
 
 				overlay.SetActive(CheckLocationForGoals());
 			}
@@ -73,11 +77,20 @@ public class PlayerTracker : MonoBehaviour {
 		foreach(PlanetInfo planet in planets) {
 			if (Input.location.lastData.latitude - planet.latitude < goalRadius &&
 				Input.location.lastData.longitude - planet.longitude < goalRadius) {
+					
+				if (GetHeadingDelta(planet) > headingOffsetAngle) {
+					continue;
+				}
 				
 				currentPlanet = planet;
 				
 				if (!planetIsPlaced) {
-					BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen.");
+					if (GetHeadingDelta(planet) > headingOffsetAngle) {
+						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst.");
+					} else {
+						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen.");
+					}
+					
 				} else {
 					BuildLogger.instance.SetInfo(planet.information);
 					BuildLogger.instance.SetPlanetName(planet.name);
@@ -88,5 +101,26 @@ public class PlayerTracker : MonoBehaviour {
 		}
 		
 		return false;
+	}
+	
+	private float GetHeadingDelta(PlanetInfo planet) {
+		Vector2 planetLocation = new Vector2(planet.latitude, planet.longitude);
+		Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
+		Vector2 north = new Vector2(0, 1);
+		
+		float angle = Mathf.Acos(Vector2.Dot(north, (planetLocation - playerLocation).normalized)) * Mathf.Rad2Deg;
+		
+		// map angle to [0, 360]
+		if (angle < 0) {
+			angle += 360;
+		}
+		
+		float delta = Mathf.Abs(Input.compass.trueHeading - angle);
+		
+		BuildLogger.instance.Debug("Magnetic Heading: " + Input.compass.trueHeading + "\n" +
+			"Geographic Heading: " + angle + "\n" +
+			"Delta: " + delta, Time.deltaTime);
+		
+		return delta;
 	}
 }
