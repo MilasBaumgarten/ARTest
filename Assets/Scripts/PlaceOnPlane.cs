@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -53,7 +53,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
         void Update()
         {
             if (!TryGetTouchPosition(out Vector2 touchPosition))
-                return;
+	            return;
+                
+	        if (!PlayerTracker.GetPlanetIsInView()) {
+	        	return;
+	        }
 
             if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
             {

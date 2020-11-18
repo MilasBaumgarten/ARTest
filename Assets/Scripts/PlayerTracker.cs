@@ -7,16 +7,21 @@ public class PlayerTracker : MonoBehaviour {
 	[Tooltip("Distance from goal coordinates in seconds where the goal will still be counted as hit")]
 	[SerializeField] private double goalRadius = 10;
 	[SerializeField] private double headingOffsetAngle = 45;
-	[SerializeField] private List<PlanetInfo> planets = new List<PlanetInfo>();
+	[SerializeField] private List<PlanetScriptableObject> planetObjects = new List<PlanetScriptableObject>();
 	[SerializeField] private GameObject overlay;
 	[Space(15)]
 	[SerializeField] private Material debugPlanetMaterial;
 	
 	private static PlanetInfo currentPlanet;
 	private static bool planetIsPlaced = false;
+	private static bool planetIsInView = false;
 	
 	public static PlanetInfo GetCurrentPlanet() {
 		return currentPlanet;
+	}
+	
+	public static bool GetPlanetIsInView() {
+		return planetIsInView;
 	}
 
 	public static void SetPlanetIsPlaced(bool state) {
@@ -31,6 +36,8 @@ public class PlayerTracker : MonoBehaviour {
 	private void Start() {
 		overlay.SetActive(false);
 		StartCoroutine(LocationUpdate());
+		
+		goalRadius *= 0.00001;
 		
 		// enable compass
 		Input.compass.enabled = true;
@@ -58,48 +65,38 @@ public class PlayerTracker : MonoBehaviour {
 			BuildLogger.instance.Debug("Could not convert input to int!", 5);
 		}
 	}
-
-	public void SetGoal() {
-		if (Input.location.status == LocationServiceStatus.Running) {
-			planets.Add(new PlanetInfo(
-				"DebugPlanet", 
-				"This is a debug planet.\nThere is no relevant information.",
-				Input.location.lastData.latitude, 
-				Input.location.lastData.longitude,
-				debugPlanetMaterial
-			));
-			
-			BuildLogger.instance.Debug("New goal added at: N" + Input.location.lastData.latitude + " - E" + Input.location.lastData.longitude, 5);
-		}
-	}
 	
 	private bool CheckLocationForGoals() {
-		foreach(PlanetInfo planet in planets) {
-			if (Input.location.lastData.latitude - planet.latitude < goalRadius &&
-				Input.location.lastData.longitude - planet.longitude < goalRadius) {
+		foreach(PlanetScriptableObject planet in planetObjects) {
+			
+			if (Mathf.Abs(Input.location.lastData.latitude - planet.info.latitude) < goalRadius &&
+				Mathf.Abs(Input.location.lastData.longitude - planet.info.longitude) < goalRadius) {
 					
-				if (GetHeadingDelta(planet) > headingOffsetAngle) {
-					continue;
-				}
+				BuildLogger.instance.Debug("lat: " + Mathf.Abs(Input.location.lastData.latitude - planet.info.latitude) + "\nlong: " + Mathf.Abs(Input.location.lastData.longitude - planet.info.longitude), 0);
 				
-				currentPlanet = planet;
+				currentPlanet = planet.info;
 				
 				if (!planetIsPlaced) {
-					if (GetHeadingDelta(planet) > headingOffsetAngle) {
-						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst.");
+					float delta = GetHeadingDelta(planet.info);
+					
+					if (delta > headingOffsetAngle) {
+						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta);
+						planetIsInView = false;
 					} else {
-						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen.");
+						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta);
+						planetIsInView = true;
 					}
 					
 				} else {
-					BuildLogger.instance.SetInfo(planet.information);
-					BuildLogger.instance.SetPlanetName(planet.name);
+					planetIsInView = false;
+					BuildLogger.instance.SetInfo(planet.info.information);
+					BuildLogger.instance.SetPlanetName(planet.info.name);
 				}
 
 				return true;
 			}
 		}
-		
+		planetIsInView = false;
 		return false;
 	}
 	
@@ -117,9 +114,9 @@ public class PlayerTracker : MonoBehaviour {
 		
 		float delta = Mathf.Abs(Input.compass.trueHeading - angle);
 		
-		BuildLogger.instance.Debug("Magnetic Heading: " + Input.compass.trueHeading + "\n" +
-			"Geographic Heading: " + angle + "\n" +
-			"Delta: " + delta, Time.deltaTime);
+		//BuildLogger.instance.Debug("Magnetic Heading: " + Input.compass.trueHeading + "\n" +
+		//	"Geographic Heading: " + angle + "\n" +
+		//	"Delta: " + delta, Time.deltaTime);
 		
 		return delta;
 	}

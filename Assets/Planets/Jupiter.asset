@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f707ca367b4fad429b05bd421025062, type: 3}
+  m_Name: Jupiter
+  m_EditorClassIdentifier: 
+  info:
+    name: Jupiter
+    information: Lidl lohnt sich
+    latitude: 50.98607
+    longitude: 12.970701
+    planetMaterial: {fileID: 2100000, guid: 4f0a5898a8ce9144c88e47eb8b1fe0c8, type: 2}
+    moons: 0
+    specialObjectToSpawn: {fileID: 0}

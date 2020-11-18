@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4181027171868550}
   - component: {fileID: 6182455282590185878}
   - component: {fileID: 532113035343378065}
-  - component: {fileID: 7878170885874648544}
   m_Layer: 0
-  m_Name: AR Placed Planet
+  m_Name: Moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1934569588295450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -60,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9569db4998d08a24687b73606562cc18, type: 2}
+  - {fileID: 2100000, guid: 9d1a37548480a7a409eec5b473eaf45a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,17 +81,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7878170885874648544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934569588295450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6809219ce1a584fad9ab05175542ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moonPrefab: {fileID: 1934569588295450, guid: c2a5703599e5c8244aa778426eb05099, type: 3}
-  rotationSpeed: 0.1
