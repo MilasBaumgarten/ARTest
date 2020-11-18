@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5869187549730482130}
   - component: {fileID: 23757564266038714}
   - component: {fileID: 120517587746667212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AR Plane Debug Visualizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
