@@ -4,7 +4,7 @@ using System;
 [Serializable]
 public struct PlanetInfo {
 	public string name;
-	[TextArea]
+	[TextArea(5,20)]
 	public string information;
 	[Space(10)]
 	public float latitude;

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     name: Neptun
-    information: "Caf\xE9 14"
+    information: "\xB7 4496 Millionen Kilometer Abstand zur Sonne\r\n\xB7 164,8 Jahre
+      Umlaufzeit\r\n\xB7 24600 km Radius\r\n\xB7 17,3 Erdmassen\r\n\xB7 13 Monde"
     latitude: 50.986935
     longitude: 12.970735
     planetMaterial: {fileID: 2100000, guid: fda2c7daa6207cb459cbc0d62b4231fd, type: 2}

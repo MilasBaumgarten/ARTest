@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     name: Merkur
-    information: Raus aus der Wohnung
+    information: "\xB7 57,9 Millionen Kilometer Abstand zur Sonne\r\n\xB7 88 Tage
+      Umlaufzeit\r\n\xB7 2440 km Radius\r\n\xB7 0,057 Erdmassen"
     latitude: 50.985893
     longitude: 12.968293
     planetMaterial: {fileID: 2100000, guid: 61def880ea1a6324c9e4c32de432c55d, type: 2}

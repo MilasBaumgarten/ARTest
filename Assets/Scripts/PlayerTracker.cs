@@ -46,10 +46,6 @@ public class PlayerTracker : MonoBehaviour {
 	IEnumerator LocationUpdate() {
 		while(true){
 			if (Input.location.status == LocationServiceStatus.Running) {
-				//BuildLogger.instance.Debug("N: "+ Input.location.lastData.latitude, 0.2f);
-				//BuildLogger.instance.Debug("E: " + Input.location.lastData.longitude, 0.2f);
-				//BuildLogger.instance.Debug("Accuracy: " + Input.location.lastData.horizontalAccuracy, 0.2f);
-
 				overlay.SetActive(CheckLocationForGoals());
 			}
 			yield return new WaitForSeconds(0.2f);
@@ -57,47 +53,57 @@ public class PlayerTracker : MonoBehaviour {
 	}
 
 	public void SetGoalRadius(string goalRadius) {
-		int newRadius = 0;
-		if (int.TryParse(goalRadius, out newRadius)) {
-			this.goalRadius = newRadius * 0.00001;
-			BuildLogger.instance.Debug("New Radius: " + this.goalRadius, 5);
-		} else {
-			BuildLogger.instance.Debug("Could not convert input to int!", 5);
-		}
-	}
+        if (int.TryParse(goalRadius, out int newRadius)) {
+            this.goalRadius = newRadius * 0.00001;
+            BuildLogger.instance.Debug("New Radius: " + this.goalRadius, 5);
+        } else {
+            BuildLogger.instance.Debug("Could not convert input to int!", 5);
+        }
+    }
 	
 	private bool CheckLocationForGoals() {
-		foreach(PlanetScriptableObject planet in planetObjects) {
-			
-			if (Mathf.Abs(Input.location.lastData.latitude - planet.info.latitude) < goalRadius &&
-				Mathf.Abs(Input.location.lastData.longitude - planet.info.longitude) < goalRadius) {
-					
-				BuildLogger.instance.Debug("lat: " + Mathf.Abs(Input.location.lastData.latitude - planet.info.latitude) + "\nlong: " + Mathf.Abs(Input.location.lastData.longitude - planet.info.longitude), 0);
-				
-				currentPlanet = planet.info;
-				
-				if (!planetIsPlaced) {
-					float delta = GetHeadingDelta(planet.info);
-					
-					if (delta > headingOffsetAngle) {
-						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta);
-						planetIsInView = false;
-					} else {
-						BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta);
-						planetIsInView = true;
-					}
-					
-				} else {
-					planetIsInView = false;
-					BuildLogger.instance.SetInfo(planet.info.information);
-					BuildLogger.instance.SetPlanetName(planet.info.name);
-				}
+		PlanetInfo nearestPlanet = new PlanetInfo("", "", 0, 0, null);
+		float distanceToNearestPlanet = -1;
+		Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
 
-				return true;
+		// find neares planet
+		foreach (PlanetScriptableObject planet in planetObjects) {
+			Vector2 planetLocation = new Vector2(planet.info.latitude, planet.info.longitude);
+			float distance = (planetLocation - playerLocation).magnitude;
+			
+			if (distance < goalRadius) {
+				if (distanceToNearestPlanet < 0 || distance < distanceToNearestPlanet) {
+					nearestPlanet = planet.info;
+                }
 			}
 		}
-		planetIsInView = false;
-		return false;
+
+		// check if planet was found
+		if (nearestPlanet.name.Equals("") && nearestPlanet.information.Equals("")) {
+			planetIsInView = false;
+			return false;
+		} else {
+			currentPlanet = nearestPlanet;
+
+			if (!planetIsPlaced) {
+				float delta = GetHeadingDelta(nearestPlanet);
+
+				if (delta > headingOffsetAngle) {
+					BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta);
+					planetIsInView = false;
+				} else {
+					BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta);
+					planetIsInView = true;
+				}
+
+			} else {
+				planetIsInView = false;
+				BuildLogger.instance.SetInfo(nearestPlanet.information);
+				BuildLogger.instance.SetPlanetName(nearestPlanet.name);
+			}
+
+			return true;
+		}
 	}
 	
 	private float GetHeadingDelta(PlanetInfo planet) {
@@ -112,12 +118,6 @@ public class PlayerTracker : MonoBehaviour {
 			angle += 360;
 		}
 		
-		float delta = Mathf.Abs(Input.compass.trueHeading - angle);
-		
-		//BuildLogger.instance.Debug("Magnetic Heading: " + Input.compass.trueHeading + "\n" +
-		//	"Geographic Heading: " + angle + "\n" +
-		//	"Delta: " + delta, Time.deltaTime);
-		
-		return delta;
+		return Mathf.Abs(Input.compass.trueHeading - angle);
 	}
 }

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     name: Jupiter
-    information: Lidl lohnt sich
+    information: "\xB7 778,3 Millionen Kilometer Abstand zur Sonne\r\n\xB7 11,9 Jahre
+      Umlaufzeit\r\n\xB7 71500 km Radius\r\n\xB7 318,3 Erdmassen\r\n\xB7 min. 63
+      Mond"
     latitude: 50.98607
     longitude: 12.970701
     planetMaterial: {fileID: 2100000, guid: 4f0a5898a8ce9144c88e47eb8b1fe0c8, type: 2}
