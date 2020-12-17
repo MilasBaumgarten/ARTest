@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation.Samples;
 
 public class PlayerTracker : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class PlayerTracker : MonoBehaviour {
 	[SerializeField] private GameObject overlay;
 	[Space(15)]
 	[SerializeField] private Material debugPlanetMaterial;
+
+	[Space(10)]
+	[SerializeField] private PlaceOnPlane placeOnPlane;
 	
 	private static PlanetInfo currentPlanet;
 	private static bool planetIsPlaced = false;
@@ -105,6 +109,11 @@ public class PlayerTracker : MonoBehaviour {
 			return true;
 		}
 	}
+
+	public void DespawnPlanet() {
+		SetPlanetIsPlaced(false);
+		Destroy(placeOnPlane.spawnedObject);
+    }
 	
 	private float GetHeadingDelta(PlanetInfo planet) {
 		Vector2 planetLocation = new Vector2(planet.latitude, planet.longitude);
