@@ -419,7 +419,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084556924}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 816b289ef451e094f9ae174fb4cf8db0, type: 3}
   m_Name: 
@@ -1049,10 +1049,6 @@ PrefabInstance:
       propertyPath: placeOnPlane
       value: 
       objectReference: {fileID: 617464181}
-    - target: {fileID: 8488295988317384557, guid: 7f11e00aa83461042ae0ebc907f2f43a, type: 3}
-      propertyPath: goalRadius
-      value: 5000000000
-      objectReference: {fileID: 0}
     - target: {fileID: 8688607107745959836, guid: 7f11e00aa83461042ae0ebc907f2f43a, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
