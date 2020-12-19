@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Venus
     information: "\xB7 108,2 Millionen Kilometer Abstand zur Sonne\r\n\xB7 225 Tage
       Umlaufzeit\r\n\xB7 6052 km Radius\r\n\xB7 0,816 Erdmasse"
-    latitude: 50.985947
-    longitude: 12.968427
+    latitude: 54.30718
+    longitude: 13.683366
     planetMaterial: {fileID: 2100000, guid: 4900b7961b5fbc843b04fa8bd5d2dca4, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 0}

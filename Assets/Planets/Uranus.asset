@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Uranus
     information: "\xB7 2870 Millionen Kilometer Abstand zur Sonne\r\n\xB7 83,8 Jahre
       Umlaufzeit\r\n\xB7 25560 km Radius\r\n\xB7 14,6 Erdmassen\r\n\xB7 27 Monde"
-    latitude: 50.98637
-    longitude: 12.972509
+    latitude: 54.309505
+    longitude: 13.6837015
     planetMaterial: {fileID: 2100000, guid: 05973cae339196e41999fb1fa80f4511, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 0}

@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Neptun
     information: "\xB7 4496 Millionen Kilometer Abstand zur Sonne\r\n\xB7 164,8 Jahre
       Umlaufzeit\r\n\xB7 24600 km Radius\r\n\xB7 17,3 Erdmassen\r\n\xB7 13 Monde"
-    latitude: 50.986935
-    longitude: 12.970735
+    latitude: 54.30879
+    longitude: 13.683628
     planetMaterial: {fileID: 2100000, guid: fda2c7daa6207cb459cbc0d62b4231fd, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 0}

@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Saturn
     information: "\xB7 1427 Millionen Kilometer Abstand zur Sonne\r\n\xB7 29,5 Jahre
       Umlaufzeit\r\n\xB7 60270 km Radius\r\n\xB7 95,3 Erdmassen\r\n\xB7 min. 61 Monde"
-    latitude: 50.98589
-    longitude: 12.972015
+    latitude: 54.31093
+    longitude: 13.681201
     planetMaterial: {fileID: 2100000, guid: b16b8bdfb5a48af4b98a2417387aaaa7, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 2963979485327942174, guid: 51b2a2caf6707184ea8adf12ab04db52, type: 3}

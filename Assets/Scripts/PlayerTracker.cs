@@ -70,6 +70,9 @@ public class PlayerTracker : MonoBehaviour {
 		float distanceToNearestPlanet = -1;
 		Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
 
+		// debug
+		// float dClosestPlanetDistance = -1;
+
 		// find neares planet
 		foreach (PlanetScriptableObject planet in planetObjects) {
 			Vector2 planetLocation = new Vector2(planet.info.latitude, planet.info.longitude);
@@ -78,8 +81,14 @@ public class PlayerTracker : MonoBehaviour {
 			if (distance < goalRadius) {
 				if (distanceToNearestPlanet < 0 || distance < distanceToNearestPlanet) {
 					nearestPlanet = planet.info;
+					distanceToNearestPlanet = distance;
                 }
-			}
+			} /*else {
+				if (dClosestPlanetDistance < 0 || distance < dClosestPlanetDistance) {
+					dClosestPlanetDistance = distance;
+					BuildLogger.instance.SetInfo("Distance: " + (dClosestPlanetDistance / 0.00001));
+				}
+			}*/
 		}
 
 		// check if planet was found
