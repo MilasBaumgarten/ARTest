@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Mars
     information: "\xB7 227,9 Millionen Kilometer Abstand zur Sonne\r\n\xB7 686 Tage
       Umlaufzeit\r\n\xB7 3396 km Radius\r\n\xB7 0,107 Erdmassen\r\n\xB7 2 Monde"
-    latitude: 54.30877
-    longitude: 13.682615
+    latitude: 51.136517
+    longitude: 14.800383
     planetMaterial: {fileID: 2100000, guid: 22d47b0f82196c84cb56db1d9441b610, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 0}

@@ -16,8 +16,8 @@ MonoBehaviour:
     name: Merkur
     information: "\xB7 57,9 Millionen Kilometer Abstand zur Sonne\r\n\xB7 88 Tage
       Umlaufzeit\r\n\xB7 2440 km Radius\r\n\xB7 0,057 Erdmassen"
-    latitude: 54.308784
-    longitude: 13.68313
+    latitude: 51.138332
+    longitude: 14.800067
     planetMaterial: {fileID: 2100000, guid: 61def880ea1a6324c9e4c32de432c55d, type: 2}
     moons: 0
     specialObjectToSpawn: {fileID: 0}
