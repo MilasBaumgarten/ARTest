@@ -64,6 +64,8 @@ namespace UnityEngine.XR.ARFoundation.Samples {
                 } else {
                     spawnedObject.transform.position = hitPose.position;
                 }
+
+                PlayerTracker.PlanetWasSpawned();
             }
         }
     }

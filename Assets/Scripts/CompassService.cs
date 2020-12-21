@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CompassService : MonoBehaviour {
     void Start() {
@@ -8,7 +6,6 @@ public class CompassService : MonoBehaviour {
     }
 
     void Update() {
-	    BuildLogger.instance.Debug("Heading: " + Input.compass.trueHeading, 0.0f);
+        Debug.Log("Heading: " + Input.compass.trueHeading);
     }
-    
 }

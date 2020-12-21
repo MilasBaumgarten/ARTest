@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation.Samples;
 
 public class PlayerTracker : MonoBehaviour {
@@ -9,6 +10,9 @@ public class PlayerTracker : MonoBehaviour {
 	[SerializeField] private double goalRadius = 10;
 	[SerializeField] private double headingOffsetAngle = 45;
 	[SerializeField] private List<PlanetScriptableObject> planetObjects = new List<PlanetScriptableObject>();
+	[Space(10)]
+	[SerializeField] private Text infoText;
+	[SerializeField] private Text planetNameText;
 	[SerializeField] private GameObject overlay;
 	[Space(15)]
 	[SerializeField] private Material debugPlanetMaterial;
@@ -19,7 +23,7 @@ public class PlayerTracker : MonoBehaviour {
 	private static PlanetInfo currentPlanet;
 	private static bool planetIsPlaced = false;
 	private static bool planetIsInView = false;
-	
+
 	public static PlanetInfo GetCurrentPlanet() {
 		return currentPlanet;
 	}
@@ -28,16 +32,18 @@ public class PlayerTracker : MonoBehaviour {
 		return planetIsInView;
 	}
 
-	public static void SetPlanetIsPlaced(bool state) {
+	public void SetPlanetIsPlaced(bool state) {
 		planetIsPlaced = state;
 
 		if (state == false) {
-			BuildLogger.instance.SetInfo("");
-			BuildLogger.instance.SetPlanetName("");
+			Debug.Log("Removing planet name and info.");
+            infoText.text = "";
+			planetNameText.text = "";
 		}
 	}
 
 	private void Start() {
+
 		overlay.SetActive(false);
 		StartCoroutine(LocationUpdate());
 		
@@ -59,9 +65,9 @@ public class PlayerTracker : MonoBehaviour {
 	public void SetGoalRadius(string goalRadius) {
         if (int.TryParse(goalRadius, out int newRadius)) {
             this.goalRadius = newRadius * 0.00001;
-            BuildLogger.instance.Debug("New Radius: " + this.goalRadius, 5);
+			Debug.Log("New Radius: " + this.goalRadius);
         } else {
-            BuildLogger.instance.Debug("Could not convert input to int!", 5);
+			Debug.LogWarning("Could not convert input to int!");
         }
     }
 	
@@ -74,6 +80,8 @@ public class PlayerTracker : MonoBehaviour {
 		foreach (PlanetScriptableObject planet in planetObjects) {
 			Vector2 planetLocation = new Vector2(planet.info.latitude, planet.info.longitude);
 			float distance = (planetLocation - playerLocation).magnitude;
+
+			Debug.Log("Distance: " + distance);
 			
 			if (distance < goalRadius) {
 				if (distanceToNearestPlanet < 0 || distance < distanceToNearestPlanet) {
@@ -93,20 +101,21 @@ public class PlayerTracker : MonoBehaviour {
 			if (!planetIsPlaced) {
 				float delta = GetHeadingDelta(nearestPlanet);
 
-				BuildLogger.instance.SetPlanetName(nearestPlanet.name);
+				Debug.Log("Found planet:" + nearestPlanet.name);
+				planetNameText.text = nearestPlanet.name;
 
 				if (delta > headingOffsetAngle) {
-					BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta);
+					infoText.text = "Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta;
 					planetIsInView = false;
 				} else {
-					BuildLogger.instance.SetInfo("Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta);
+					infoText.text = "Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta;
 					planetIsInView = true;
 				}
 
 			} else {
 				planetIsInView = false;
-				BuildLogger.instance.SetInfo(nearestPlanet.information);
-				BuildLogger.instance.SetPlanetName(nearestPlanet.name);
+				infoText.text = nearestPlanet.information;
+				planetNameText.text = nearestPlanet.name;
 			}
 
 			return true;
@@ -116,6 +125,10 @@ public class PlayerTracker : MonoBehaviour {
 	public void DespawnPlanet() {
 		SetPlanetIsPlaced(false);
 		Destroy(placeOnPlane.spawnedObject);
+    }
+
+	public static void PlanetWasSpawned() {
+		planetIsInView = true;
     }
 	
 	private float GetHeadingDelta(PlanetInfo planet) {

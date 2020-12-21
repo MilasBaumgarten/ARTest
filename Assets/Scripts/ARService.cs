@@ -12,6 +12,7 @@ public class ARService: MonoBehaviour {
 	}
 	
 	private void OnStateChanged(ARSessionStateChangedEventArgs args) {
+		/*
 		switch(args.state) {
 			case ARSessionState.None:
 				BuildLogger.instance.Debug("None", 2);
@@ -38,5 +39,6 @@ public class ARService: MonoBehaviour {
 				BuildLogger.instance.Debug("Unsupported", 2);
 				break;
 		}
+		*/
 	}
 }
