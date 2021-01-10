@@ -99,17 +99,10 @@ public class PlayerTracker : MonoBehaviour {
 			currentPlanet = nearestPlanet;
 
 			if (!planetIsPlaced) {
-				float delta = GetHeadingDelta(nearestPlanet);
 
 				Debug.Log("Found planet:" + nearestPlanet.name);
 				planetNameText.text = nearestPlanet.name;
 
-				if (delta > headingOffsetAngle) {
-					infoText.text = "Du hast einen Planeten gefunden.\nDrehe dich so, dass du ihn sehen kannst. " + delta;
-					planetIsInView = false;
-				} else {
-					infoText.text = "Du hast einen Planeten gefunden.\nFinde eine geeignete Fläche um den Planeten zu sehen. " + delta;
-					planetIsInView = true;
 				}
 
 			} else {
@@ -130,19 +123,5 @@ public class PlayerTracker : MonoBehaviour {
 	public static void PlanetWasSpawned() {
 		planetIsInView = true;
     }
-	
-	private float GetHeadingDelta(PlanetInfo planet) {
-		Vector2 planetLocation = new Vector2(planet.latitude, planet.longitude);
-		Vector2 playerLocation = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-		Vector2 north = new Vector2(0, 1);
-		
-		float angle = Mathf.Acos(Vector2.Dot(north, (planetLocation - playerLocation).normalized)) * Mathf.Rad2Deg;
-		
-		// map angle to [0, 360]
-		if (angle < 0) {
-			angle += 360;
-		}
-		
-		return Mathf.Abs(Input.compass.trueHeading - angle);
 	}
 }
