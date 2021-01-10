@@ -5,7 +5,7 @@ public class ARPlanet : MonoBehaviour {
 	[SerializeField] private float rotationSpeed = 0.2f;
 	
 	protected void Start() {
-		PlanetInfo currentPlanet = PlayerTracker.GetCurrentPlanet();
+		PlanetInfo currentPlanet = PlayerTracker.instance.currentPlanet;
 		
 		GetComponent<MeshRenderer>().material = currentPlanet.planetMaterial;
 		

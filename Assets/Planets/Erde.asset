@@ -15,7 +15,7 @@ MonoBehaviour:
   info:
     name: Erde
     information: "\xB7 149,6 Millionen Kilometer Abstand zur Sonne\r\n\xB7 365 Tage
-      Umlaufzeit\r\n\xB7 6371 km Radius\r\n\xB7 1 Erdmasse\r\n\xB7 1 Mond"
+      Umlaufzeit\r\n\xB7 6371 km Radius\r\n\xB7 1 Mond"
     latitude: 51.138317
     longitude: 14.800417
     planetMaterial: {fileID: 2100000, guid: 9569db4998d08a24687b73606562cc18, type: 2}
